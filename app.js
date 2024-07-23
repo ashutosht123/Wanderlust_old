@@ -13,6 +13,7 @@ const routListing=require("./routes/listing.js")
 const routesReviews=require("./routes/reviews.js")
 const routesUser=require("./routes/user.js")
 const session=require("express-session")
+const MongoStore = require('connect-mongo');
 const flash=require("connect-flash")
 const passport=require("passport")
 const localStrategy=require("passport-local")
@@ -25,17 +26,31 @@ app.use(methodOverride("_method"));
 app.engine('ejs',ejsmate)
 app.use(express.static(path.join(__dirname,"/public")))
 
-async function main() {
-  await mongoose.connect(MONGO_URL);
-}
 
-const MONGO_URL='mongodb://127.0.0.1:27017/wanderlustdata'
+
+// const MONGO_URL='mongodb://127.0.0.1:27017/wanderlustdata'
+const dburl=process.env.ATLASDB_URL
+
 main().then((result)=>{
     console.log("connected to db")
 }).catch(err => console.log(err));
 
+async function main() {
+  await mongoose.connect(dburl);
+}
+let store=MongoStore.create({
+  mongoUrl:dburl,
+  crypto: {
+    secret: process.env.SECRET
+  },
+  touchAfter:24*3600,
+})
+store.on("error",()=>{
+  console.log("ERROR IN MONGO SESSION STORE",err)
+})
 const sessionOptions={
-  secret:"mysupersecretcode",
+  store,
+  secret:process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie:{
@@ -45,9 +60,9 @@ const sessionOptions={
   }
 }
 
-app.get("/",(req,res)=>{
-  res.send("hi iam root")
-})
+// app.get("/",(req,res)=>{
+//   res.send("hi iam root")
+// })
 
 app.use(session(sessionOptions))
 app.use(flash())

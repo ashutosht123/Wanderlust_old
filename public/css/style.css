@@ -6,7 +6,10 @@ body{
 }
 .navbar{
     height: 5rem;
-    background-color: white;
+    background-color: white !important;
+}
+.container-fluid{
+    background-color: white !important;
 }
 .fa-compass{
     font-size: 3rem;
@@ -47,9 +50,7 @@ a{
 .copywrite{
     font-size: 20px;
 }
-.row{
-    width: 100% !important;
-}
+
 .container{
    max-width: 100% !important;
    flex: 1;
@@ -107,4 +108,16 @@ a{
 .Show-card{
     padding-left: 0 !important;
     padding-right: 0 !important;
+}
+
+#map { 
+    height: 600px; 
+    width: 100vh;
+}
+.tax-info{
+    display: none;
+}
+.row a{
+    width: 30% !important; 
+    margin-left: 2.5rem !important;
 }
