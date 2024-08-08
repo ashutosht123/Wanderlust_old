@@ -28,18 +28,18 @@ app.use(express.static(path.join(__dirname,"/public")))
 
 
 
-// const MONGO_URL='mongodb://127.0.0.1:27017/wanderlustdata'
-const dburl=process.env.ATLASDB_URL
+const MONGO_URL='mongodb://127.0.0.1:27017/wanderlustdata'
+// const dburl=process.env.ATLASDB_URL
 
 main().then((result)=>{
     console.log("connected to db")
 }).catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect(dburl);
+  await mongoose.connect(MONGO_URL);
 }
 let store=MongoStore.create({
-  mongoUrl:dburl,
+  mongoUrl:MONGO_URL,
   crypto: {
     secret: process.env.SECRET
   },
@@ -103,3 +103,4 @@ app.use((err,req,res,next)=>{
 app.listen(8000,()=>{
     console.log("listening on port 8000")
 })
+
