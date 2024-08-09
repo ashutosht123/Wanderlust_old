@@ -1,7 +1,7 @@
 # Wanderlust
 
 ### Wanderlust is a MERN stack project inspired by Airbnb, providing a platform for users to browse and book vacation rentals. This project is hosted on Render and can be accessed here. https://wanderlust-hjuu.onrender.com
-
+### Note: When you clicke on the above link you will redirected to the Wanderlust website but showing some error like page not found below the navbar, so just click on the explore and then after signup or login process just try to add new listings.
 ## Features
 
 - User authentication and authorization  
